@@ -1,0 +1,34 @@
+﻿@model IEnumerable<TimeShop.Areas.User.Models.UserModel>
+
+@{
+    ViewData["Title"] = "Managers";
+}
+
+<h2>Managers</h2>
+<a asp-area="admin" asp-controller="Manager" asp-action="Create" class="btn btn-outline-success mb-2">Create</a>
+<table class="table table-dark table-striped">
+    <thead>
+        <tr>
+            <th class="text-center" scope="col">#</th>
+            <th class="text-center" scope="col">Name</th>
+            <th class="text-center" scope="col">Surname</th>
+            <th class="text-center" scope="col">Email</th>
+            <th class="text-center" scope="col">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model)
+        {
+            <tr>
+                <th class="col-1 text-center align-middle" scope="row">@user.UserId</th>
+                <td class="col-3 text-center align-middle">@user.UserName</td>
+                <td class="col-3 text-center align-middle">@user.UserSurname</td>
+                <td class="col-3 text-center align-middle">@user.UserEmail</td>
+                <td class="col-3 text-center align-middle">
+                    <a asp-area="admin" asp-controller="Manager" asp-action="Update" asp-route-userId="@user.UserId" class="btn btn-outline-warning">Update</a>
+                    <a asp-area="admin" asp-controller="Manager" asp-action="Delete" asp-route-userId="@user.UserId" class="btn btn-outline-danger">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

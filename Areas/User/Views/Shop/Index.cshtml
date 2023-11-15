@@ -1,0 +1,27 @@
+﻿@model IEnumerable<TimeShop.Areas.User.Models.ProductModel>
+
+@{
+    ViewData["Title"] = "Products";
+}
+
+<ul class="product-list">
+    @foreach(var product in Model)
+    {
+        <li class="product-item">
+            <div class="product-container">
+                <div class="product-content">
+                    <div class="product-img">
+                        <img src="/ProductImages/@product.ProductImage">
+                    </div>
+                    <div class="product-group">
+                        <h3 class="product-title">@product.ProductName</h3>
+                        <div class="product-control">
+                            <span class="product-price">@product.ProductPrice ₽</span>
+                            <a href="#" class="product-btn">В корзину</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </li>
+    }
+</ul>
