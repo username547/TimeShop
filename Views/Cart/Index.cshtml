@@ -1,0 +1,81 @@
+﻿@model IEnumerable<CartQuery>
+
+@{
+    ViewData["Title"] = "CartItems";
+    var temp = Model.FirstOrDefault();
+}
+
+<h2 class="display-6">Корзина</h2>
+<div class="row d-flex flex-row justify-content-between">
+    @if (temp == null)
+    {
+
+        <div class="text-center">
+            <h4 class="mb-3">В корзине нет товаров</h4>
+            <a asp-area="" asp-controller="Home" asp-action="Index" class="btn btn-primary">Вернуться к покупкам</a>
+        </div>
+    }
+    else
+    {
+        <div class="col-8">
+            @foreach (var product in Model)
+            {
+                <div class="d-flex flex-row mb-4">
+                    <div class="col">
+                        <img src="/ProductImages/@product.ProductImage" style="height:200px; width:auto">
+                    </div>
+                    <div class="col-6 d-flex flex-column justify-content-center">
+                        <p><span style="font-size: 26px; font-weight: 600;">@product.ProductName</span></p>
+                        <p><span style="font-size: 20px;">@product.ProductPrice</span></p>
+                        <p>
+                            <a asp-area="" asp-controller="Cart" asp-action="DeleteProduct" asp-route-productId="@product.ProductId">
+                                <span class="material-icons-outlined">delete</span>
+                            </a>
+                        </p>
+                    </div>
+                    <div class="col d-flex flex-column gap-1">
+                        <p class="mb-0 text-center">
+                            <span>Кол-во</span>
+                        </p>
+                        <div class="d-flex flex-row justify-content-center align-items-center gap-3">
+                            <a asp-area="" asp-controller="Cart" asp-action="MinusProduct" asp-route-productId="@product.ProductId">
+                                <span class="material-icons-outlined">remove</span>
+                            </a>
+                            <span>@product.ProductQuantity</span>
+                            <a asp-area="" asp-controller="Cart" asp-action="PlusProduct" asp-route-productId="@product.ProductId">
+                                <span class="material-icons-outlined">add</span>
+                            </a>
+                        </div>
+                        <p class="mb-0 text-center">
+                            <span>@product.TotalProductPrice</span>
+                        </p>
+                    </div>
+                </div>
+            }
+        </div>
+        <div class="col-3">
+            <ul class="d-flex flex-column gap-2">
+                <li><h4 class="mb-0">В корзине</h4></li>
+                <li>
+
+                    @if (temp!.TotalPurchasedItems == 1)
+                    {
+                        <span>@temp.TotalPurchasedItems товар</span>
+                    }
+                    else if (temp.TotalPurchasedItems < 5)
+                    {
+                        <span>@temp.TotalPurchasedItems товара</span>
+                    }
+                    else
+                    {
+                        <span>@temp.TotalPurchasedItems товаров</span>
+                    }
+                </li>
+                <li><span style="font-size: 32px; font-weight: 600;">@temp.TotalCartPrice</span></li>
+                <li><a asp-area="" asp-controller="Cart" asp-action="Index" class="btn btn-primary">Перейти к оформлению</a></li>
+                <li><a asp-area="" asp-controller="Cart" asp-action="Index" class="btn btn-primary">Очистить корзину</a></li>
+            </ul>
+        </div>
+    }
+</div>
+

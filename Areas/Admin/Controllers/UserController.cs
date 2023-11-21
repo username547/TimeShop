@@ -5,8 +5,8 @@ using TimeShop.Data;
 
 namespace TimeShop.Areas.Admin.Controllers
 {
-	[Area("admin")]
-    [Authorize(Roles = ("Admin"))]
+	[Area("Admin")]
+    [Authorize(Roles = "Admin")]
     public class UserController : Controller
 	{
 		private readonly ApplicationDbContext _context;
@@ -19,7 +19,7 @@ namespace TimeShop.Areas.Admin.Controllers
 		[HttpGet]
 		public IActionResult Index()
 		{
-			IEnumerable<UserModel> users = _context.Users.Where(x => x.RoleId == 3);
+			IEnumerable<UserModel> users = _context.Users.Where(x => x.RoleId == 2);
 			return View(users);
 		}
 	}

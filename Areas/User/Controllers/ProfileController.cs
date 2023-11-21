@@ -8,7 +8,7 @@ using TimeShop.Data;
 
 namespace TimeShop.Areas.User.Controllers
 {
-	[Area("user")]
+	[Area("User")]
 	public class ProfileController : Controller
 	{
 		private readonly ApplicationDbContext _context;
@@ -22,8 +22,8 @@ namespace TimeShop.Areas.User.Controllers
 		[Authorize]
 		public async Task<IActionResult> Index()
 		{
-			var emailClaim = HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Email);
-			string email = emailClaim.Value;
+			var claim = HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Email);
+			string email = claim!.Value;
 
 			var currentUser = await _context.Users.FirstOrDefaultAsync(x => x.UserEmail == email);
 

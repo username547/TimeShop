@@ -10,7 +10,7 @@ using TimeShop.Data;
 
 namespace TimeShop.Areas.User.Controllers
 {
-	[Area("user")]
+	[Area("User")]
 	public class AccountController : Controller
 	{
 		private readonly ApplicationDbContext _context;
@@ -30,29 +30,27 @@ namespace TimeShop.Areas.User.Controllers
 		[ValidateAntiForgeryToken]
 		public async Task<IActionResult> Signup(SignupRequest request)
 		{
-			if (ModelState.IsValid)
-			{
-				var checkEmail = await _context.Users.FirstOrDefaultAsync(x => x.UserEmail == request.Email);
+			if (!ModelState.IsValid)
+				return View(request);
 
-				if (checkEmail != null)
-                    return BadRequest("Email already exists");
+            var email = await _context.Users.FirstOrDefaultAsync(x => x.UserEmail == request.Email);
 
-                UserModel user = new UserModel
-				{
-					UserName = request.Name,
-					UserSurname = request.Surname,
-					UserEmail = request.Email,
-					UserPasswordHash = BCrypt.Net.BCrypt.HashPassword(request.Password),
-					RoleId = 3
-				};
+            if (email != null)
+                return View(request);
 
-				_context.Users.Add(user);
-				await _context.SaveChangesAsync();
+            UserModel user = new UserModel
+            {
+                UserName = request.Name,
+                UserSurname = request.Surname,
+                UserEmail = request.Email,
+                UserPasswordHash = BCrypt.Net.BCrypt.HashPassword(request.Password),
+                RoleId = 2
+            };
 
-				return RedirectToAction("Login");
-			}
+            _context.Users.Add(user);
+            await _context.SaveChangesAsync();
 
-			return View(request);
+            return RedirectToAction("Login");
 		}
 
 		[HttpGet]
@@ -66,22 +64,22 @@ namespace TimeShop.Areas.User.Controllers
 		public async Task<IActionResult> Login(LoginRequest request)
 		{
 			if (!ModelState.IsValid)
-                return BadRequest();
+                return View(request);
 
             var user = await _context.Users.FirstOrDefaultAsync(x => x.UserEmail == request.Email);
 
 			if (user == null)
-				return BadRequest("Email is not valid");
+				return View(request);
 
 			if (!BCrypt.Net.BCrypt.Verify(request.Password, user.UserPasswordHash))
-				return BadRequest("Password is not valid");
+				return View(request);
 
 			var role = await _context.Roles.FirstOrDefaultAsync(x => x.RoleId == user.RoleId);
 
 			List<Claim> claims = new List<Claim>
 			{
 				new Claim(ClaimTypes.Email, user.UserEmail),
-				new Claim(ClaimTypes.Role, role.RoleName)
+				new Claim(ClaimTypes.Role, role!.RoleName)
 			};
 
 			var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);

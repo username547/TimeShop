@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using TimeShop.Data;
 
@@ -41,13 +42,13 @@ app.UseAuthorization();
 
 app.MapAreaControllerRoute(
 	name: "AdminArea",
-	areaName: "admin",
-	pattern: "admin/{controller=Home}/{action=Index}/{id?}");
+	areaName: "Admin",
+	pattern: "Admin/{controller=Home}/{action=Index}/{id?}");
 
 app.MapAreaControllerRoute(
 	name: "UserArea",
-	areaName: "user",
-	pattern: "user/{controller=Home}/{action=Index}/{id?}");
+	areaName: "User",
+	pattern: "User/{controller=Home}/{action=Index}/{id?}");
 
 app.MapControllerRoute(
 	name: "default",

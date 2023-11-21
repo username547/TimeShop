@@ -1,35 +1,35 @@
-﻿@model TimeShop.Areas.User.Models.DTO.SignupRequest
+﻿@model SignupRequest
 
 @{
 	ViewData["Title"] = "Signup";
 }
 
-<h2>Signup</h2>
-<form asp-area="user" asp-controller="Account" asp-action="Signup">
-	<div class="form-group">
-		<label asp-for="Name">Name</label>
-		<input type="text" asp-for="Name">
-		<span asp-validation-for="Name"></span>
-	</div>
-	<div class="form-group">
-		<label asp-for="Surname">Surname</label>
-		<input type="text" asp-for="Surname">
-		<span asp-validation-for="Surname"></span>
-	</div>
-	<div class="form-group">
-		<label asp-for="Email">Email</label>
-		<input type="text" asp-for="Email">
-		<span asp-validation-for="Email"></span>
-	</div>
-	<div class="form-group">
-		<label asp-for="Password">Password</label>
-		<input type="text" asp-for="Password">
-		<span asp-validation-for="Password"></span>
-	</div>
-	<div class="form-group">
-		<label asp-for="ConfirmPassword">Confirm Password</label>
-		<input type="text" asp-for="ConfirmPassword">
-		<span asp-validation-for="ConfirmPassword"></span>
-	</div>
-	<button type="submit">Submit</button>
-</form>
+
+<div class="container justify-content-lg-center" style="width: 500px">
+	<h2 class="display-6 text-center">Регистрация</h2>
+	<form asp-area="User" asp-controller="Account" asp-action="Signup" class="row" >
+		<div class="col mb-2">
+			<label asp-for="Name" class="form-label">Имя</label>
+			<input asp-for="Name" type="text" class="form-control">
+		</div>
+		<div class="col mb-2">
+			<label asp-for="Surname" class="form-label">Фамилия</label>
+			<input asp-for="Surname" class="form-control">
+		</div>
+		<div class="col-12 mb-2">
+			<label asp-for="Email" class="form-label">Email</label>
+			<input asp-for="Email" type="email" class="form-control">
+		</div>
+		<div class="col-12 mb-2">
+			<label asp-for="Password" class="form-label">Пароль</label>
+			<input asp-for="Password" type="password" class="form-control">
+		</div>
+		<div class="col-12 mb-3">
+			<label asp-for="ConfirmPassword" class="form-label">Повторите пароль</label>
+			<input asp-for="ConfirmPassword" type="password" class="form-control">
+		</div>
+		<div class="col-12">
+			<button type="submit" class="btn btn-primary">Зарегистрироваться</button>
+		</div>
+	</form>
+</div>

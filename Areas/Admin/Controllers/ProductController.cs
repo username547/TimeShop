@@ -1,13 +1,12 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using TimeShop.Areas.User.Models;
-using TimeShop.Areas.User.Models.DTO;
 using TimeShop.Data;
+using TimeShop.Models;
 
 namespace TimeShop.Areas.Admin.Controllers
 {
-    [Area("admin")]
-    [Authorize(Roles = ("Admin,Manager"))]
+    [Area("Admin")]
+    [Authorize(Roles = "Admin")]
     public class ProductController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -30,7 +29,6 @@ namespace TimeShop.Areas.Admin.Controllers
         {
             return View();
         }
-
 
 		[HttpPost]
 		[ValidateAntiForgeryToken]

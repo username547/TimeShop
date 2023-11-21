@@ -1,10 +1,27 @@
-﻿@model TimeShop.Areas.User.Models.UserModel
+﻿@model UserModel
 
 @{
-	ViewData["Title"] = "Info";
+	ViewData["Title"] = "Profile";
 }
 
-<h2>Profile</h2>
-<span>@Model.UserName</span>
-<span>@Model.UserSurname</span>
-<span>@Model.UserEmail</span>
+<div class="container justify-content-center" style="width: 500px;">
+	<h2 class="display-6 text-center">Профиль</h2>
+	<form class="mb-2">
+		<div class="col mb-2">
+			<label asp-for="@Model.UserName" class="form-label">Имя</label>
+			<input asp-for="@Model.UserName" type="text" value="@Model.UserName" class="form-control">
+		</div>
+		<div class="col mb-2">
+			<label asp-for="@Model.UserSurname" class="form-label">Фамилия</label>
+			<input asp-for="@Model.UserSurname" type="text" value="@Model.UserSurname" class="form-control">
+		</div>
+		<div class="col-12 mb-2">
+			<label asp-for="@Model.UserEmail" class="form-label">Email</label>
+			<input asp-for="@Model.UserEmail" type="email" value="@Model.UserEmail" class="form-control">
+		</div>
+		<div class="col-12">
+			<button type="submit" class="btn btn-primary">Изменить</button>
+			<a asp-area="User" asp-controller="Account" asp-action="Logout" class="btn btn-primary">Выйти</a>
+		</div>
+	</form>
+</div>

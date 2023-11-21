@@ -5,25 +5,25 @@
 namespace TimeShop.Migrations
 {
     /// <inheritdoc />
-    public partial class AddImageInProductModel : Migration
+    public partial class Update_CartItemModel : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AddColumn<byte[]>(
-                name: "ProductImage",
-                table: "Products",
-                type: "varbinary(max)",
+            migrationBuilder.AddColumn<int>(
+                name: "ProductQuantity",
+                table: "CartItems",
+                type: "int",
                 nullable: false,
-                defaultValue: new byte[0]);
+                defaultValue: 0);
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
-                name: "ProductImage",
-                table: "Products");
+                name: "ProductQuantity",
+                table: "CartItems");
         }
     }
 }

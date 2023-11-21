@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using TimeShop.Models;
 
 namespace TimeShop.Areas.User.Models
 {
@@ -28,6 +29,6 @@ namespace TimeShop.Areas.User.Models
 		public int? RoleId { get; set; }
 		public RoleModel? Role { get; set; }
 
-		public ICollection<OrderModel>? Orders { get; set; }
+		public ICollection<CartModel>? Carts { get; set; }
     }
 }

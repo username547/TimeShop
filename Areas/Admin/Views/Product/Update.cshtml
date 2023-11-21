@@ -1,30 +1,31 @@
-﻿@model TimeShop.Areas.User.Models.ProductModel
+﻿@model ProductModel
 
 
 @{
 	ViewData["Title"] = "Update";
 }
 
-<h2>Update product</h2>
-
-<form method="post" enctype="multipart/form-data" asp-area="admin" asp-controller="product" asp-action="update">
-	<div class="form-group">
-		<label asp-for="ProductId">Product id</label>
-		<input type="text" asp-for="ProductId" readonly>
-	</div>
-	<div class="form-group">
-		<label asp-for="ProductName">Product name</label>
-		<input type="text" asp-for="ProductName">
-		<span asp-validation-for="ProductName"></span>
-	</div>
-	<div class="form-group">
-		<label asp-for="ProductPrice">Product price</label>
-		<input type="text" asp-for="ProductPrice">
-		<span asp-validation-for="ProductPrice"></span>
-	</div>
-	<div class="form-group">
-		<label for="image">Product image</label>
-		<input type="file" name="image">
-	</div>
-	<button type="submit">Update</button>
-</form>
+<div class="container justify-content-center" style="width: 500px">
+	<form method="post" enctype="multipart/form-data" asp-area="Admin" asp-controller="Product" asp-action="Update">
+		<h2 class="display-6 text-center">Изменить</h2>
+		<div class="col-12 mb-2">
+			<label asp-for="ProductId" class="form-label">ID</label>
+			<input asp-for="ProductId" type="text" readonly class="form-control">
+		</div>
+		<div class="col-12 mb-2">
+			<label asp-for="ProductName" class="form-label">Название</label>
+			<input asp-for="ProductName" type="text" class="form-control">
+			<span asp-validation-for="ProductName"></span>
+		</div>
+		<div class="col-12 mb-2">
+			<label asp-for="ProductPrice" class="form-label">Стоимость</label>
+			<input asp-for="ProductPrice" type="text" class="form-control">
+			<span asp-validation-for="ProductPrice"></span>
+		</div>
+		<div class="col-12 mb-2">
+			<label for="image" class="form-label">Изображение</label>
+			<input type="file" name="image" class="form-control">
+		</div>
+		<button type="submit" class="btn btn-primary">Изменить</button>
+	</form>
+</div>
