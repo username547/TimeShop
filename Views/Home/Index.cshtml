@@ -4,17 +4,17 @@
     ViewData["Title"] = "Home";
 }
 
-<ul class="product-list">
+<ul style="display: flex; justify-content:center; gap: 24px; flex-wrap: wrap;">
     @foreach (var product in Model)
     {
-        <li class="product-item">
-            <div class="card" style="width: 18rem;">
-                <img src="/ProductImages/@product.ProductImage" class="card-img-top" style="padding: 6px 12px 0px 12px;">
-                <div class="card-body">
-                    <h5 class="card-title">@product.ProductName</h5>
-                    <p class="card-text">@product.ProductPrice ₽</p>
-                    <a asp-area="" asp-controller="Cart" asp-action="AddProduct" asp-route-productId="@product.ProductId" class="btn btn-primary">В корзину</a>
-                </div>
+        <li class="card" style="width: 300px;">
+            <div class="text-center" style="padding: 8px 12px">
+                <img src="/ProductImages/@product.ProductImage" style="height: 296px; width: auto;">
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">@product.ProductName</h5>
+                <p class="card-text">@product.ProductPrice</p>
+                <a asp-area="" asp-controller="Cart" asp-action="AddProduct" asp-route-productId="@product.ProductId" class="btn btn-primary">В корзину</a>
             </div>
         </li>
     }

@@ -12,7 +12,7 @@
             <th class="text-center align-middle" scope="col">Название</th>
             <th class="text-center align-middle" scope="col">Стоимость</th>
             <th class="text-center align-middle" scope="col">Изображение</th>
-            <th class="text-center align-middle" scope="col"><a asp-area="Admin" asp-controller="Product" asp-action="Create" class="btn btn-primary">Create</a></th>
+            <th class="text-center align-middle" scope="col"><a asp-area="Admin" asp-controller="ProductManagement" asp-action="Create" class="btn btn-primary">Добавить</a></th>
         </tr>
     </thead>
     <tbody>
@@ -24,8 +24,8 @@
                 <td class="col-3 text-center align-middle">@product.ProductPrice</td>
                 <td class="col-3 text-center align-middle"><img src="/ProductImages/@product.ProductImage" style="height:80px; width:auto"></td>
                 <td class="col-3 text-center align-middle">
-                    <a asp-area="Admin" asp-controller="Product" asp-action="Update" asp-route-productId="@product.ProductId" class="btn btn-outline-warning">Update</a>
-                    <a asp-area="Admin" asp-controller="Product" asp-action="Delete" asp-route-productId="@product.ProductId" class="btn btn-outline-danger">Delete</a>
+                    <a asp-area="Admin" asp-controller="ProductManagement" asp-action="Update" asp-route-productId="@product.ProductId" class="btn btn-outline-warning">Изменить</a>
+                    <a asp-area="Admin" asp-controller="ProductManagement" asp-action="Delete" asp-route-productId="@product.ProductId" class="btn btn-outline-danger">Удалить</a>
                 </td>
             </tr>
         }

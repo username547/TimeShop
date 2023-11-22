@@ -9,6 +9,7 @@ using TimeShop.Data;
 namespace TimeShop.Areas.User.Controllers
 {
 	[Area("User")]
+	[Authorize]
 	public class ProfileController : Controller
 	{
 		private readonly ApplicationDbContext _context;
@@ -19,15 +20,21 @@ namespace TimeShop.Areas.User.Controllers
 		}
 
 		[HttpGet]
-		[Authorize]
-		public async Task<IActionResult> Index()
+		public IActionResult Index()
 		{
-			var claim = HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Email);
-			string email = claim!.Value;
-
-			var currentUser = await _context.Users.FirstOrDefaultAsync(x => x.UserEmail == email);
+			var currentUser = GetCurrentUser();
 
 			return View(currentUser);
 		}
-	}
+
+        public UserModel GetCurrentUser()
+        {
+            var claim = HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Email);
+            string email = claim!.Value;
+
+            var currentUser = _context.Users.FirstOrDefault(x => x.UserEmail == email);
+
+            return currentUser!;
+        }
+    }
 }

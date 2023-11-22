@@ -6,7 +6,7 @@
 }
 
 <div class="container justify-content-center" style="width: 500px">
-	<form method="post" enctype="multipart/form-data" asp-area="Admin" asp-controller="Product" asp-action="Update">
+	<form method="post" enctype="multipart/form-data" asp-area="Admin" asp-controller="ProductManagement" asp-action="Update">
 		<h2 class="display-6 text-center">Изменить</h2>
 		<div class="col-12 mb-2">
 			<label asp-for="ProductId" class="form-label">ID</label>
@@ -26,6 +26,9 @@
 			<label for="image" class="form-label">Изображение</label>
 			<input type="file" name="image" class="form-control">
 		</div>
-		<button type="submit" class="btn btn-primary">Изменить</button>
+		<div>
+			<button type="submit" class="btn btn-primary">Изменить</button>
+			<a asp-area="Admin" asp-controller="ProductManagement" asp-action="Index" class="btn btn-primary">Вернуться</a>
+		</div>
 	</form>
 </div>

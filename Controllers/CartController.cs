@@ -76,7 +76,7 @@ namespace TimeShop.Controllers
                 _context.SaveChanges();
             }
 
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", "Home");
         }
 
         [HttpGet]
@@ -134,6 +134,21 @@ namespace TimeShop.Controllers
                 _context.CartItems.Remove(cartItem!);
                 _context.SaveChanges();
             }
+
+            return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public IActionResult DeleteAllProducts()
+        {
+            UserModel currentUser = GetCurrentUser();
+
+            var cart = _context.Carts.First(x => x.UserId == currentUser.UserId);
+
+            var cartItems = _context.CartItems.Where(x => x.CartId == cart.CartId).ToList();
+
+            _context.CartItems.RemoveRange(cartItems);
+            _context.SaveChanges();
 
             return RedirectToAction("Index");
         }

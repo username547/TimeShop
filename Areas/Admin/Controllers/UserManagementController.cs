@@ -7,11 +7,11 @@ namespace TimeShop.Areas.Admin.Controllers
 {
 	[Area("Admin")]
     [Authorize(Roles = "Admin")]
-    public class UserController : Controller
+    public class UserManagementController : Controller
 	{
 		private readonly ApplicationDbContext _context;
 
-		public UserController(ApplicationDbContext context)
+		public UserManagementController(ApplicationDbContext context)
 		{
 			_context = context;
 		}

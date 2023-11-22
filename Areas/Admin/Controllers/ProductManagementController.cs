@@ -7,12 +7,12 @@ namespace TimeShop.Areas.Admin.Controllers
 {
     [Area("Admin")]
     [Authorize(Roles = "Admin")]
-    public class ProductController : Controller
+    public class ProductManagementController : Controller
     {
         private readonly ApplicationDbContext _context;
         private readonly IWebHostEnvironment _webHostEnvironment;
 
-        public ProductController(ApplicationDbContext context, IWebHostEnvironment webHostEnvironment)
+        public ProductManagementController(ApplicationDbContext context, IWebHostEnvironment webHostEnvironment)
         {
             _context = context;
             _webHostEnvironment = webHostEnvironment;
@@ -58,7 +58,7 @@ namespace TimeShop.Areas.Admin.Controllers
 				_context.Products.Add(product);
 				_context.SaveChanges();
 
-				return RedirectToAction("Index");
+				return RedirectToAction("Create");
 			}
 
 			return View(request);
