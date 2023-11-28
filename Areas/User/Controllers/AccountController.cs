@@ -44,7 +44,7 @@ namespace TimeShop.Areas.User.Controllers
                 UserSurname = request.Surname,
                 UserEmail = request.Email,
                 UserPasswordHash = BCrypt.Net.BCrypt.HashPassword(request.Password),
-                RoleId = 2
+                RoleId = 1
             };
 
             _context.Users.Add(user);

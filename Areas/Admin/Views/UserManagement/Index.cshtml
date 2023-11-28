@@ -12,6 +12,7 @@
             <th class="text-center" scope="col">Имя</th>
             <th class="text-center" scope="col">Фамилия</th>
             <th class="text-center" scope="col">Email</th>
+            <th class="text-center align-middle" scope="col"><a asp-area="User" asp-controller="Account" asp-action="Signup" class="btn btn-primary">Добавить</a></th>
         </tr>
     </thead>
     <tbody>
@@ -22,6 +23,9 @@
                 <td class="col-3 text-center align-middle">@user.UserName</td>
                 <td class="col-3 text-center align-middle">@user.UserSurname</td>
                 <td class="col-3 text-center align-middle">@user.UserEmail</td>
+                <td class="col-3 text-center align-middle">
+                    <a asp-area="Admin" asp-controller="UserManagement" asp-action="Orders" asp-route-userId="@user.UserId" class="btn btn-outline-info">Заказы</a>
+                </td>
             </tr>
         }
     </tbody>

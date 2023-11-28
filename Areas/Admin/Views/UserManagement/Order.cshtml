@@ -1,0 +1,63 @@
+﻿@model IEnumerable<OrderQuery>
+
+@{
+    ViewData["Title"] = "CartItems";
+    var temp = Model.FirstOrDefault();
+}
+
+<div class="row d-flex flex-row justify-content-between">
+    @if (temp == null)
+    {
+
+        <div class="text-center">
+            <h4 class="mb-3">У пользователя нет заказов</h4>
+        </div>
+    }
+    else
+    {
+        <div class="col-8">
+            <ul class="list-group">
+                @foreach (var orderItem in Model)
+                {
+                    <li class="list-group-item d-flex">
+                        <div class="col">
+                            <img src="/ProductImages/@orderItem.ProductImage" style="height:200px; width:auto">
+                        </div>
+                        <div class="col-6 d-flex flex-column justify-content-center">
+                            <p><span style="font-size: 26px; font-weight: 600;">@orderItem.ProductName</span></p>
+                            <p><span style="font-size: 20px;">@orderItem.ProductPrice</span></p>
+                        </div>
+                        <div class="col d-flex flex-column gap-1">
+                            <p class="mb-0 text-center">
+                                <span>Кол-во</span>
+                            </p>
+                            <div class="d-flex flex-row justify-content-center align-items-center gap-3">
+                                <span>@orderItem.ProductQuantity</span>
+                            </div>
+                            <p class="mb-0 text-center">
+                                <span class="fs-4">@orderItem.TotalProductPrice</span>
+                            </p>
+                        </div>
+                    </li>
+                }
+            </ul>
+        </div>
+        <div class="col-3">
+            <h4 class="mb-3 fs-4 fw-bold">Информация о заказе</h4>
+            <ul class="d-flex flex-column gap-2 p-0">
+                <li>
+                    <h5 class="mb-0 fs-5 fw-bold">Получатель</h5>
+                    <span class="fs-5">@temp.UserName @temp.UserSurname</span>
+                    <span class="fs-5">@temp.UserEmail</span>
+                </li>
+                <li>
+                    <h5 class="mb-0 fs-5 fw-bold">Итого</h5>
+                    <span class="fs-5">@temp.TotalCartPrice</span>
+                </li>
+                <li>
+                    <a asp-area="Admin" asp-controller="UserManagement" asp-action="Orders" asp-route-userId="@temp.UserId" class="btn btn-primary">Вернуться</a>
+                </li>
+            </ul>
+        </div>
+    }
+</div>

@@ -111,19 +111,67 @@ namespace TimeShop.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CartId"));
 
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("CartId");
+
+                    b.HasIndex("UserId")
+                        .IsUnique();
+
+                    b.ToTable("Carts");
+                });
+
+            modelBuilder.Entity("TimeShop.Models.OrderItemModel", b =>
+                {
+                    b.Property<int>("OrderItemId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("OrderItemId"));
+
+                    b.Property<int>("OrderId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProductQuantity")
+                        .HasColumnType("int");
+
+                    b.HasKey("OrderItemId");
+
+                    b.HasIndex("OrderId");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("OrderItems");
+                });
+
+            modelBuilder.Entity("TimeShop.Models.OrderModel", b =>
+                {
+                    b.Property<int>("OrderId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("OrderId"));
+
+                    b.Property<DateTime>("OrderDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<int>("StatusId")
                         .HasColumnType("int");
 
                     b.Property<int>("UserId")
                         .HasColumnType("int");
 
-                    b.HasKey("CartId");
+                    b.HasKey("OrderId");
 
                     b.HasIndex("StatusId");
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Carts");
+                    b.ToTable("Orders");
                 });
 
             modelBuilder.Entity("TimeShop.Models.ProductModel", b =>
@@ -199,14 +247,44 @@ namespace TimeShop.Migrations
 
             modelBuilder.Entity("TimeShop.Models.CartModel", b =>
                 {
+                    b.HasOne("TimeShop.Areas.User.Models.UserModel", "User")
+                        .WithOne("Carts")
+                        .HasForeignKey("TimeShop.Models.CartModel", "UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("TimeShop.Models.OrderItemModel", b =>
+                {
+                    b.HasOne("TimeShop.Models.OrderModel", "Order")
+                        .WithMany("OrderItems")
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("TimeShop.Models.ProductModel", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Order");
+
+                    b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("TimeShop.Models.OrderModel", b =>
+                {
                     b.HasOne("TimeShop.Models.StatusModel", "Status")
-                        .WithMany("Carts")
+                        .WithMany("Orders")
                         .HasForeignKey("StatusId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("TimeShop.Areas.User.Models.UserModel", "User")
-                        .WithMany("Carts")
+                        .WithMany("Orders")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -224,11 +302,18 @@ namespace TimeShop.Migrations
             modelBuilder.Entity("TimeShop.Areas.User.Models.UserModel", b =>
                 {
                     b.Navigation("Carts");
+
+                    b.Navigation("Orders");
                 });
 
             modelBuilder.Entity("TimeShop.Models.CartModel", b =>
                 {
                     b.Navigation("CartItems");
+                });
+
+            modelBuilder.Entity("TimeShop.Models.OrderModel", b =>
+                {
+                    b.Navigation("OrderItems");
                 });
 
             modelBuilder.Entity("TimeShop.Models.ProductModel", b =>
@@ -238,7 +323,7 @@ namespace TimeShop.Migrations
 
             modelBuilder.Entity("TimeShop.Models.StatusModel", b =>
                 {
-                    b.Navigation("Carts");
+                    b.Navigation("Orders");
                 });
 #pragma warning restore 612, 618
         }

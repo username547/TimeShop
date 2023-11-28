@@ -153,6 +153,44 @@ namespace TimeShop.Controllers
             return RedirectToAction("Index");
         }
 
+        [HttpGet]
+        public IActionResult MakeOrder()
+        {
+            UserModel currentUser = GetCurrentUser();
+
+            var cart = _context.Carts.FirstOrDefault(x => x.UserId == currentUser.UserId);
+
+            var cartItems = _context.CartItems.Where(x => x.CartId == cart!.CartId);
+
+            OrderModel order = new OrderModel
+            {
+                UserId = currentUser.UserId,
+                StatusId = 1,
+                OrderDate = DateTime.Now,
+            };
+
+            _context.Orders.Add(order);
+            _context.SaveChanges();
+
+            foreach (var cartItem in cartItems)
+            {
+                OrderItemModel orderItem = new OrderItemModel
+                {
+                    OrderId = order.OrderId,
+                    ProductId = cartItem.ProductId,
+                    ProductQuantity = cartItem.ProductQuantity
+                };
+
+                _context.OrderItems.Add(orderItem);
+                _context.CartItems.Remove(cartItem);
+            }
+
+            _context.Carts.Remove(cart!);
+            _context.SaveChanges();
+
+            return RedirectToAction("Index");
+        }
+
         public UserModel GetCurrentUser()
         {
             var claim = HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Email);
@@ -168,7 +206,6 @@ namespace TimeShop.Controllers
             CartModel cart = new CartModel
             {
                 UserId = userId,
-                StatusId = 1
             };
 
             _context.Carts.Add(cart);

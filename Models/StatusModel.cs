@@ -11,6 +11,6 @@ namespace TimeShop.Models
         [StringLength(50)]
         public string StatusName { get; set; } = string.Empty;
 
-        public ICollection<CartModel>? Carts { get; set; }
+        public ICollection<OrderModel>? Orders { get; set; }
     }
 }

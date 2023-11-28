@@ -15,11 +15,9 @@
             <label asp-for="Password" class="form-label">Пароль</label>
             <input asp-for="Password" type="password" class="form-control">
         </div>
-        <div class="col-12 mb-2">
+        <div class="col-12 d-flex flex-row justify-content-between align-items-center">
             <button type="submit" class="btn btn-primary">Войти</button>
-        </div>
-        <div class="col-12">
-            <a asp-area="User" asp-controller="Account" asp-action="Signup">Зарегистрироваться</a>
+            <a asp-area="User" asp-controller="Account" asp-action="Signup" class="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">Зарегистрироваться</a>
         </div>
     </form>
 </div>

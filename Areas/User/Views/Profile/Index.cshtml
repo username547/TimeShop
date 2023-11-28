@@ -20,7 +20,7 @@
 			<input asp-for="@Model.UserEmail" type="email" value="@Model.UserEmail" class="form-control">
 		</div>
 		<div class="col-12">
-			<button type="submit" class="btn btn-primary">Изменить</button>
+			<a asp-area="User" asp-controller="Profile" asp-action="Orders" class="btn btn-primary">Заказы</a>
 			<a asp-area="User" asp-controller="Account" asp-action="Logout" class="btn btn-primary">Выйти</a>
 		</div>
 	</form>

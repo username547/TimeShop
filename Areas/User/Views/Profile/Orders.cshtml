@@ -1,0 +1,20 @@
+﻿@model IEnumerable<UserOrdersQuery>
+
+@{
+    ViewData["Title"] = "Заказы";
+}
+
+<h2 class="display-6 mb-2">Ваши заказы</h2>
+<ul class="list-group">
+    @foreach(var order in Model)
+    {
+        <li class="list-group-item">
+            <a asp-area="User" asp-controller="Profile" asp-action="Order" asp-route-orderId="@order.OrderId" class="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">
+                <div>
+                    <h4>Заказ от @order.OrderDate</h4>
+                    <span style="font-size: 20px;">Статус заказа: @order.StatusName</span>
+                </div>
+            </a>  
+        </li>
+    }
+</ul>

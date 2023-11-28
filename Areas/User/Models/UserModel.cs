@@ -29,6 +29,8 @@ namespace TimeShop.Areas.User.Models
 		public int? RoleId { get; set; }
 		public RoleModel? Role { get; set; }
 
-		public ICollection<CartModel>? Carts { get; set; }
+		public CartModel? Carts { get; set; }
+
+		public ICollection<OrderModel>? Orders { get; set; }
     }
 }

@@ -19,8 +19,8 @@ namespace TimeShop.Controllers
 		[HttpGet]
 		public IActionResult Index()
 		{
-            IEnumerable<ProductModel> products = _context.Products.ToList();
-            return View(products);
+			IEnumerable<ProductModel> products = _context.Products.ToList();
+			return View(products);
 		}
 
 		public IActionResult Privacy()

@@ -14,6 +14,8 @@ namespace TimeShop.Data
 		public DbSet<StatusModel> Statuses { get; set; }
 		public DbSet<CartModel> Carts { get; set; }
 		public DbSet<CartItemModel> CartItems { get; set; }
+		public DbSet<OrderModel> Orders { get; set; }
+		public DbSet<OrderItemModel> OrderItems { get; set; }
 		public DbSet<ProductModel> Products { get; set; }
 	}
 }

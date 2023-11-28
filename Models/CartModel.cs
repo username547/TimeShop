@@ -13,10 +13,6 @@ namespace TimeShop.Models
         public int UserId { get; set; }
         public UserModel? User { get; set; }
 
-        [ForeignKey("StatusId")]
-        public int StatusId { get; set; }
-        public StatusModel? Status { get; set; }
-
         public ICollection<CartItemModel>? CartItems { get; set; }
     }
 }
