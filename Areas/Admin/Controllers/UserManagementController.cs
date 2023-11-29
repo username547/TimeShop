@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using TimeShop.Areas.User.Models;
 using TimeShop.Data;
+using TimeShop.Models;
 using TimeShop.Models.DTO;
 
 namespace TimeShop.Areas.Admin.Controllers
@@ -20,7 +21,7 @@ namespace TimeShop.Areas.Admin.Controllers
 		[HttpGet]
 		public IActionResult Index()
 		{
-            IEnumerable<UserModel> users = _context.Users.Where(x => x.RoleId == 1);
+            IEnumerable<UserModel> users = _context.Users.ToList();
             return View(users);
 		}
 
@@ -30,7 +31,7 @@ namespace TimeShop.Areas.Admin.Controllers
 			var user = _context.Users.FirstOrDefault(x => x.UserId == userId);
 
 			if (user == null)
-				return RedirectToAction("Index");
+				return NotFound();
 
             var query = from u in _context.Users
                         join o in _context.Orders on u.UserId equals o.UserId
@@ -52,7 +53,7 @@ namespace TimeShop.Areas.Admin.Controllers
             var order = _context.Orders.FirstOrDefault(x => x.OrderId == orderId);
 
             if (order == null)
-                return RedirectToAction("Index");
+                return NotFound();
 
             var query = from u in _context.Users
                         join o in _context.Orders on u.UserId equals o.UserId
@@ -83,6 +84,37 @@ namespace TimeShop.Areas.Admin.Controllers
                         };
 
             return View(query.ToList());
+        }
+
+        [HttpGet]
+        public IActionResult UpdateOrder(int? orderId)
+        {
+            var order = _context.Orders.FirstOrDefault(x => x.OrderId == orderId);
+
+            if (order == null)
+                return NotFound();
+
+            ViewBag.StatusList = _context.Statuses.ToList();
+
+            return View(order);
+        }
+
+        [HttpPost]
+        public IActionResult UpdateOrder(OrderModel request)
+        {
+            if (!ModelState.IsValid)
+                return View(request);
+
+            var order = _context.Orders.FirstOrDefault(x => x.OrderId == request.OrderId);
+
+            if (order == null)
+                return NotFound();
+
+            order.StatusId = request.StatusId;
+
+            _context.SaveChanges();
+
+            return RedirectToAction("Order", new { orderId = order.OrderId });
         }
 	}
 }

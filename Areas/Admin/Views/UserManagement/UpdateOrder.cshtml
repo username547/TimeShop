@@ -1,0 +1,30 @@
+﻿@model OrderModel
+
+@{
+    ViewData["Title"] = "Изменить";
+}
+
+<div class="container justify-content-center" style="width: 500px">
+	<form asp-area="Admin" asp-controller="UserManagement" asp-action="UpdateOrder">
+		<h2 class="display-6 text-center">Изменить</h2>
+		<div class="col-12 mb-2">
+			<label asp-for="OrderId" class="form-label">ID Заказа</label>
+			<input asp-for="OrderId" type="text" readonly class="form-control">
+		</div>
+		<div class="col-12 mb-2">
+			<label asp-for="UserId" class="form-label">ID Пользователя</label>
+			<input asp-for="UserId" type="text" readonly class="form-control">
+		</div>
+		<div class="col-12 mb-2">
+			<label asp-for="StatusId" class="control-label">Статус заказа</label>
+			<select asp-for="StatusId" asp-items="@(new SelectList(ViewBag.StatusList, "StatusId", "StatusName"))" class="form-control"></select>
+		</div>
+		<div class="col-12 mb-2">
+			<label asp-for="OrderDate" class="form-label">Дата заказа</label>
+			<input asp-for="OrderDate" type="text" readonly class="form-control">
+		</div>
+		<div class="col-12">
+			<button type="submit" class="btn btn-primary">Изменить</button>
+		</div>
+	</form>
+</div>

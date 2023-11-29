@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<OrderQuery>
 
 @{
-    ViewData["Title"] = "CartItems";
+    ViewData["Title"] = "";
     var temp = Model.FirstOrDefault();
 }
 
@@ -55,6 +55,7 @@
                     <span class="fs-5">@temp.TotalCartPrice</span>
                 </li>
                 <li>
+                    <a asp-area="Admin" asp-controller="UserManagement" asp-action="UpdateOrder" asp-route-orderId="@temp.OrderId" class="btn btn-primary">Изменить</a>
                     <a asp-area="Admin" asp-controller="UserManagement" asp-action="Orders" asp-route-userId="@temp.UserId" class="btn btn-primary">Вернуться</a>
                 </li>
             </ul>
