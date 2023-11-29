@@ -1,21 +1,18 @@
 ﻿@model IEnumerable<OrderQuery>
 
 @{
-    ViewData["Title"] = "CartItems";
+    ViewData["Title"] = "Заказ";
     var temp = Model.FirstOrDefault();
 }
 
 <div class="row d-flex flex-row justify-content-between">
     @if (temp == null)
     {
-
-        <div class="text-center">
-            <h4 class="mb-3">У вас еще нет заказов</h4>
-            <a asp-area="" asp-controller="Home" asp-action="Index" class="btn btn-primary">Вернуться к покупкам</a>
-        </div>
+        <h2 class="display-6 text-center">Здесь пока что пусто</h2>
     }
     else
     {
+        <h2 class="display-6">Заказ</h2>
         <div class="col-8">
             <ul class="list-group">
                 @foreach (var orderItem in Model)

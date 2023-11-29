@@ -160,7 +160,10 @@ namespace TimeShop.Controllers
 
             var cart = _context.Carts.FirstOrDefault(x => x.UserId == currentUser.UserId);
 
-            var cartItems = _context.CartItems.Where(x => x.CartId == cart!.CartId);
+            if (cart == null)
+                return NotFound();
+
+            var cartItems = _context.CartItems.Where(x => x.CartId == cart.CartId);
 
             OrderModel order = new OrderModel
             {
@@ -182,10 +185,9 @@ namespace TimeShop.Controllers
                 };
 
                 _context.OrderItems.Add(orderItem);
-                _context.CartItems.Remove(cartItem);
             }
 
-            _context.Carts.Remove(cart!);
+            _context.Carts.Remove(cart);
             _context.SaveChanges();
 
             return RedirectToAction("Index");

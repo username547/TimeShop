@@ -55,7 +55,7 @@ namespace TimeShop.Areas.User.Controllers
             var order = _context.Orders.FirstOrDefault(x => x.OrderId == orderId);
 
             if (order == null)
-                return BadRequest("Order not found");
+                return NotFound();
 
             var query = from u in _context.Users
                         join o in _context.Orders on u.UserId equals o.UserId
